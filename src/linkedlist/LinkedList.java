@@ -99,7 +99,7 @@ public class LinkedList<E> {
 
     public E remove(int index){
         if(index < -1 || index >= size)
-            throw new IllegalArgumentException("index illegal");
+            return null;
         Node pre = dummyHead;
         for (int i = 0; i < index; i++) {
             pre = pre.next;
@@ -144,6 +144,39 @@ public class LinkedList<E> {
             cur = cur.next;
         }
         cur.e = e;
+    }
+
+    public LinkedList reverse(){
+        LinkedList linkedList1 = new LinkedList();
+
+        Node<E> cur = dummyHead.next;
+        while(cur != null){
+            linkedList1.addFirst(cur.e);
+            cur = cur.next;
+        }
+       /* while (true){
+            E e = this.removeFirst();
+            if (e != null){
+                linkedList1.addFirst(e);
+            }else {
+                break;
+            }
+        }*/
+         return linkedList1;
+    }
+
+    public LinkedList reverse1(){
+        LinkedList linkedList1 = new LinkedList();
+
+        while (true){
+            E e = this.removeFirst();
+            if (e != null){
+                linkedList1.addFirst(e);
+            }else {
+                break;
+            }
+        }
+        return linkedList1;
     }
 
     @Override
