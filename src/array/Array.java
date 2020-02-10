@@ -16,24 +16,43 @@ public class Array <E> {
     public Array(){
         this(10);
     }
+
+    /**
+     * 在末端添加元素
+     * @param e
+     */
     public void addLast(E e) {
         add(size,e);
     }
 
+    /**
+     * 在首端添加元素
+     * @param e
+     */
     public void addFirst(E e) {
         add(0, e);
     }
 
-
-
+    /**
+     * 是否为空
+     * @return
+     */
     public boolean isEmpty(){
         return size == 0;
     }
 
+    /**
+     * 元素个数
+     * @return
+     */
     public int getSize(){
         return size;
     }
 
+    /**
+     * 数组长度
+     * @return
+     */
     public int getCap(){
         return data.length;
     }
@@ -42,13 +61,23 @@ public class Array <E> {
         return (E[]) data;
     }
 
-    void setData(int index,E e) {
+    /**
+     * 更新
+     * @param index
+     * @param e
+     */
+    void set(int index,E e) {
         if(index < 0 || index >= size ){
             throw new IllegalArgumentException("Set fail, index is >= 0 || < size \n");
         }
         data[index] = e;
     }
 
+    /**
+     * 查询
+     * @param index
+     * @return
+     */
     public E get(int index) {
         if(index < 0 || index > size - 1){
             throw new IllegalArgumentException("Set fail, index is >= 0 || < size");
@@ -56,14 +85,27 @@ public class Array <E> {
         return (E)data[index];
     }
 
+    /**
+     * 查询最后一个元素
+     * @return
+     */
     public E getLast(){
         return get(size-1);
     }
 
+    /**
+     * 查询第一个元素
+     * @return
+     */
     public E getFirst(){
         return get(0);
     }
 
+    /**
+     * 是否包含元素e
+     * @param e
+     * @return
+     */
     public boolean contains(E e){
         for (int i = 0; i < size; i++){
             if (data[i] == e){
@@ -73,7 +115,12 @@ public class Array <E> {
         return false;
     }
 
-    public int find(E e){
+    /**
+     * 查询元素下标
+     * @param e
+     * @return
+     */
+    public int findIndex(E e){
         for (int i = 0; i < size ; i++){
             if (data[i] == e){
                 return i;
@@ -82,16 +129,29 @@ public class Array <E> {
         return -1;
     }
 
+    /**
+     * 删除第一个元素
+     * @return
+     */
     public E removeFirst(){
         return remove(0);
     }
 
+    /**
+     * 删除最后一个元素
+     * @return
+     */
     public E removelast(){
         return remove(size-1);
     }
 
+    /**
+     * 删除指定元素（第一个）
+     * @param e
+     * @return
+     */
     public boolean removeElement(E e){
-        int index = find(e);
+        int index = findIndex(e);
         if(index == -1){
             return false;
         }
@@ -100,16 +160,26 @@ public class Array <E> {
         return true;
     }
 
+    /**
+     * 删除指定元素e（所有的）
+     * @param e
+     * @return
+     */
     public boolean removeAll(E e){
         int index = -1;
         boolean ressult = false;
-        while( ( index = find(e) )!= -1){
+        while( ( index = findIndex(e) )!= -1){
             ressult = true;
             remove(index);
         }
         return ressult;
     }
 
+    /**
+     * 添加
+     * @param index
+     * @param e
+     */
     public void add(int index,E e){
         if(index < 0 ){
             throw new IllegalArgumentException("add fail, index must be >= 0");
@@ -126,6 +196,11 @@ public class Array <E> {
         size++;
     }
 
+    /**
+     * 删除指定下标的元素
+     * @param index
+     * @return
+     */
     public E remove(int index){
         if(index < 0 || index > size - 1){
             throw new IllegalArgumentException("Set fail, index is >= 0 || < size");
@@ -140,11 +215,25 @@ public class Array <E> {
         return result;
     }
 
+    /**
+     * 扩容
+     * @param cap
+     */
     private void resize(int cap){
         Object [] newArr = new Object[cap] ;
         for (int i = 0; i< size; i++)
             newArr[i] = data[i];
         data = newArr;
+    }
+
+    public void swap(int i, int j){
+        if (i == j) return;
+        if (i < 0 || j < 0 || i >= size || j >= size) {
+            throw new IllegalArgumentException("参数非法");
+        }
+        E temp = (E)data[i];
+        data[i] = data[j];
+        data[j] = temp;
     }
 
     @Override
